@@ -1,6 +1,9 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "emergency-plan-document-generator/dist",
+    "predeploy": [
+      "npm --prefix emergency-plan-document-generator run build"
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
