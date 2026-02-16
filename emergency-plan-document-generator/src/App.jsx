@@ -5,6 +5,7 @@ import { auth } from "./config/firebaseConfig";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import CreateNewDocument from "./pages/CreateNewDocument";
+import Drafts from "./pages/Drafts";
 import DashboardLayout from "./components/DashboardLayout";
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
   if (loading) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#1a1a1a" }}>
-        <p style={{ color: "#a3a3a3" }}>Loading…</p>
+        <p style={{ color: "#a3a3a3" }}>Ladataan…</p>
       </div>
     );
   }
@@ -32,6 +33,7 @@ function App() {
       <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <SignIn />} />
       <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" replace />} />
       <Route path="/dashboard/plans" element={user ? <DashboardLayout><CreateNewDocument /></DashboardLayout> : <Navigate to="/" replace />} />
+      <Route path="/dashboard/drafts" element={user ? <DashboardLayout><Drafts /></DashboardLayout> : <Navigate to="/" replace />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { auth } from "../config/firebaseConfig";
 import { generateEmergencyPlanPdf } from "../utils/generateEmergencyPlanPdf";
+import { getDraft, saveDraft, updateDraft } from "../services/draftService";
 import "./CreateNewDocument.css";
 
 const INITIAL_FORM = {
@@ -37,8 +40,31 @@ const INITIAL_FORM = {
 };
 
 export default function CreateNewDocument() {
+  const [searchParams] = useSearchParams();
+  const draftId = searchParams.get("draftId");
+  const navigate = useNavigate();
   const [form, setForm] = useState(INITIAL_FORM);
   const [generating, setGenerating] = useState(false);
+  const [savingDraft, setSavingDraft] = useState(false);
+  const [draftLoadError, setDraftLoadError] = useState(null);
+
+  const user = auth.currentUser;
+
+  useEffect(() => {
+    if (!draftId || !user) return;
+    let cancelled = false;
+    setDraftLoadError(null);
+    getDraft(draftId, user.uid)
+      .then((draft) => {
+        if (cancelled || !draft) return;
+        const { id, updatedAt, createdAt, ...formFields } = draft;
+        setForm((prev) => ({ ...INITIAL_FORM, ...formFields }));
+      })
+      .catch(() => {
+        if (!cancelled) setDraftLoadError("Luonnosta ei löydy.");
+      });
+    return () => { cancelled = true; };
+  }, [draftId, user]);
 
   const update = (key) => (e) =>
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
@@ -53,9 +79,38 @@ export default function CreateNewDocument() {
     }
   };
 
+  const handleSaveDraft = async (e) => {
+    e.preventDefault();
+    if (!user) return;
+    setSavingDraft(true);
+    try {
+      if (draftId) {
+        await updateDraft(draftId, user.uid, form);
+        navigate("/dashboard/drafts", { replace: true });
+      } else {
+        await saveDraft(user.uid, form);
+        navigate("/dashboard/drafts", { replace: true });
+      }
+    } catch (err) {
+      console.error(err);
+      setDraftLoadError("Luonnoksen tallennus epäonnistui.");
+    } finally {
+      setSavingDraft(false);
+    }
+  };
+
+  const isEditingDraft = Boolean(draftId);
+
   return (
     <div className="create-doc">
-      <h1 className="create-doc-title">Uusi pelastussuunnitelma</h1>
+      <h1 className="create-doc-title">
+        {isEditingDraft ? "Muokkaa luonnosta" : "Uusi pelastussuunnitelma"}
+      </h1>
+      {draftLoadError && (
+        <p className="create-doc-error" role="alert">
+          {draftLoadError}
+        </p>
+      )}
       <p className="create-doc-intro">
         Täytä kentät ja lataa PDF-dokumentti. Dokumentti vastaa Diggerman-tyyppistä pelastussuunnitelmaa.
       </p>
@@ -157,6 +212,14 @@ export default function CreateNewDocument() {
         </section>
 
         <div className="create-doc-actions">
+          <button
+            type="button"
+            className="create-doc-draft"
+            onClick={handleSaveDraft}
+            disabled={savingDraft}
+          >
+            {savingDraft ? "Tallennetaan…" : isEditingDraft ? "Päivitä luonnos" : "Tallenna luonnos"}
+          </button>
           <button type="submit" className="create-doc-submit" disabled={generating}>
             {generating ? "Luodaan PDF…" : "Lataa PDF"}
           </button>

@@ -20,8 +20,8 @@ export default function SignIn() {
       navigate("/dashboard", { replace: true });
     } catch (err) {
       setError(err.code === "auth/invalid-credential" || err.code === "auth/invalid-email"
-        ? "Invalid email or password."
-        : err.message || "Sign in failed.");
+        ? "Väärä sähköposti tai salasana."
+        : err.message || "Kirjautuminen epäonnistui.");
     } finally {
       setLoading(false);
     }
@@ -30,21 +30,20 @@ export default function SignIn() {
   return (
     <div className="signin-page">
       <div className="signin-card">
-        <h1 className="signin-title">Pelastussuunnitelma</h1>
-        <p className="signin-subtitle">Sign in to continue</p>
+        <h1 className="signin-title">Kirjaudu sisään</h1>
         <form onSubmit={handleSubmit} className="signin-form">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Sähköposti</label>
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
+            placeholder="esim. nimi@yritys.fi"
             autoComplete="email"
             required
             disabled={loading}
           />
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Salasana</label>
           <input
             id="password"
             type="password"
@@ -57,7 +56,7 @@ export default function SignIn() {
           />
           {error && <p className="signin-error">{error}</p>}
           <button type="submit" className="signin-button" disabled={loading}>
-            {loading ? "Signing in…" : "Sign in"}
+            {loading ? "Kirjaudutaan…" : "Kirjaudu sisään"}
           </button>
         </form>
       </div>
