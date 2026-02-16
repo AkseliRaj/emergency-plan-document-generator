@@ -6,7 +6,7 @@ import "./DashboardLayout.css";
 
 const PLACEHOLDER_LINKS = [
   { to: "/dashboard", label: "Overview" },
-  { to: "/dashboard/plans", label: "Plans" },
+  { to: "/dashboard/plans", label: "Create new document" },
   { to: "/dashboard/settings", label: "Settings" },
   { to: "/dashboard/help", label: "Help" },
 ];

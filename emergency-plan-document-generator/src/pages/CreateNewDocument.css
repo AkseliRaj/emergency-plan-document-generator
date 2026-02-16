@@ -1,0 +1,146 @@
+.create-doc {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+.create-doc-title {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #e8e8e8;
+  margin: 0 0 0.5rem;
+}
+
+.create-doc-intro {
+  font-family: "General Sans", sans-serif;
+  font-size: 0.95rem;
+  color: #a3a3a3;
+  margin: 0 0 2rem;
+  line-height: 1.5;
+}
+
+.create-doc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.create-doc-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.create-doc-section h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #e8e8e8;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.create-doc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1rem;
+  align-items: center;
+}
+
+.create-doc-grid label {
+  grid-column: 1;
+  font-family: "General Sans", sans-serif;
+  font-size: 0.875rem;
+  color: #b8b8b8;
+}
+
+.create-doc-grid input {
+  grid-column: 2;
+  padding: 0.5rem 0.75rem;
+  font-family: "General Sans", sans-serif;
+  font-size: 0.9rem;
+  color: #e8e8e8;
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(163, 163, 163, 0.25);
+  border-radius: 8px;
+  outline: none;
+}
+
+.create-doc-grid input:focus {
+  border-color: #f97316;
+}
+
+.create-doc-grid input::placeholder {
+  color: #737373;
+}
+
+/* Full-width label + input rows (e.g. when odd number of fields) */
+.create-doc-section > label {
+  display: block;
+  font-family: "General Sans", sans-serif;
+  font-size: 0.875rem;
+  color: #b8b8b8;
+  margin-bottom: 0.5rem;
+}
+
+.create-doc-section textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  font-family: "General Sans", sans-serif;
+  font-size: 0.9rem;
+  color: #e8e8e8;
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(163, 163, 163, 0.25);
+  border-radius: 8px;
+  outline: none;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.create-doc-section textarea:focus {
+  border-color: #f97316;
+}
+
+.create-doc-section textarea::placeholder {
+  color: #737373;
+}
+
+.create-doc-actions {
+  margin-top: 0.5rem;
+}
+
+.create-doc-submit {
+  padding: 0.75rem 1.5rem;
+  font-family: "General Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #f97316;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.create-doc-submit:hover:not(:disabled) {
+  background: #ea580c;
+}
+
+.create-doc-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .create-doc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .create-doc-grid input {
+    grid-column: 1;
+  }
+}

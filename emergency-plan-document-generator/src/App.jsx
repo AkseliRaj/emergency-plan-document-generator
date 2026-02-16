@@ -4,6 +4,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { auth } from "./config/firebaseConfig";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
+import CreateNewDocument from "./pages/CreateNewDocument";
+import DashboardLayout from "./components/DashboardLayout";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,6 +31,7 @@ function App() {
     <Routes>
       <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <SignIn />} />
       <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" replace />} />
+      <Route path="/dashboard/plans" element={user ? <DashboardLayout><CreateNewDocument /></DashboardLayout> : <Navigate to="/" replace />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
