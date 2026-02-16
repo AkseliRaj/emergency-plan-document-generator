@@ -1,0 +1,9 @@
+/* Headers: Manrope | Body/subtext: General Sans */
+body {
+  font-family: "General Sans", -apple-system, sans-serif;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Manrope", sans-serif;
+}
