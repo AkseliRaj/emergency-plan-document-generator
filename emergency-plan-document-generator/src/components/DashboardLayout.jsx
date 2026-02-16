@@ -7,11 +7,13 @@ import closeIcon from "../assets/svg/close-icon.svg";
 import logoImage from "../assets/webp/Logo.webp";
 import "./DashboardLayout.css";
 
-const PLACEHOLDER_LINKS = [
+const NAV_LINKS = [
   { to: "/dashboard", label: "Yleisnäkymä" },
   { to: "/dashboard/plans", label: "Uusi pelastussuunnitelma" },
   { to: "/dashboard/drafts", label: "Luonnokset" },
 ];
+
+const AUTHOR_URL = "https://akselirajahalme.fi/";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -61,7 +63,7 @@ export default function DashboardLayout({ children }) {
         </div>
         <nav className="dashboard-nav">
           <ul className="dashboard-nav-list">
-            {PLACEHOLDER_LINKS.map(({ to, label }) => (
+            {NAV_LINKS.map(({ to, label }) => (
               <li key={to}>
                 <Link to={to} className="dashboard-nav-link" onClick={() => setSidebarOpen(false)}>
                   {label}
@@ -80,9 +82,24 @@ export default function DashboardLayout({ children }) {
         />
       )}
 
-      <main className="dashboard-main">
-        {children}
-      </main>
+      <div className="dashboard-body">
+        <main className="dashboard-main">
+          {children}
+        </main>
+        <footer className="dashboard-footer">
+          <div className="dashboard-footer-inner">
+            <Link to="/dashboard" className="dashboard-footer-logo">
+              <img src={logoImage} alt="Pelastussuunnitelma" className="dashboard-footer-logo-image" />
+            </Link>
+            <p className="dashboard-footer-credits">
+              Tekijä:{" "}
+              <a href={AUTHOR_URL} target="_blank" rel="noopener noreferrer" className="dashboard-footer-author">
+                Akseli Rajahalme
+              </a>
+            </p>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }

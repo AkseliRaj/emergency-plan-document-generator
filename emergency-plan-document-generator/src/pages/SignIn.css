@@ -3,17 +3,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(145deg, #2d2d2d 0%, #1a1a1a 100%);
+  background-color: #1a1a1a;
+  background-image: linear-gradient(145deg, rgba(45, 45, 45, 0.8) 0%, rgba(26, 26, 26, 0.9) 100%), url("../assets/svg/background.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .signin-card {
   width: 100%;
   max-width: 380px;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #262626;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .signin-title {

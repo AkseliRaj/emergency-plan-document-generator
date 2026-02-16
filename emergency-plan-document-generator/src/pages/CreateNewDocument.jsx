@@ -104,7 +104,7 @@ export default function CreateNewDocument() {
   return (
     <div className="create-doc">
       <h1 className="create-doc-title">
-        {isEditingDraft ? "Muokkaa luonnosta" : "Uusi pelastussuunnitelma"}
+        {isEditingDraft ? "Muokkaa luonnosta" : "Luo uusi pelastussuunnitelma"}
       </h1>
       {draftLoadError && (
         <p className="create-doc-error" role="alert">
